@@ -1,0 +1,147 @@
+
+{#    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">#}
+{##}
+{#    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">#}
+{#    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>#}
+{#    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>#}
+    {% extends "bootstrap/base.html" %}
+
+    {% block styles %}
+    {{ super() }}
+    <link href="{{ url_for('static',filename='bootstrap-3.3.7-dist/css/bootstrap.css') }}" rel="stylesheet"/>
+    <link href="{{ url_for('static',filename='selfcss/selfcss.css') }}" rel="stylesheet"/>
+    {% endblock %}
+
+    {% block title %}ICDM 钓鱼邮件检测{% endblock %}
+
+
+    <script src="../static/bootstrap-3.3.7-dist/js/bootstrap.min.js" ></script>
+
+
+
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    [if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]>
+{% block navbar %}
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">ICDM 钓鱼邮件检测</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <input class="form-control" type="text" placeholder="查询"/>
+            </form>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+{% endblock %}
+{% block content %}
+<div class="container-fluid" style="margin-top:50px;">
+    <div class="row">
+        <div class="col-md-3 sidebar border-right">
+            <h2 class="page-header">数据集</h2>
+            <div class="train_data" style="border-bottom: 1px solid #eee;">
+                <div class="num_data">
+                    <span class="data_bar">总数据集</span>
+                    <span class="num" id="all_data">5000</span>
+                </div>
+                <div class="num_data">
+                    <span class="data_bar">Spam数据集:</span>
+                    <span class="num" id="spam_data">3000</span>
+                </div>
+                <div class="num_data">
+                    <span class="data_bar">Phishing数据集:</span>
+                    <span class="num" id="phishing_data">3000</span>
+                </div>
+
+            </div>
+            <div class="data_source" style="border-bottom: 1px solid #eee;margin-top:10px;">
+                <span class="block" style="font-size: 14px;width:100%;margin-bottom: 10px;" >
+                    数据集来源:
+                </span>
+                <span class="data_src num">SpamArchive</span>
+            </div>
+
+            <div class="data_btn_bar" style="margin-top:130px;">
+                <button type="button"  class="btn btn-primary float-right" data-toggle="button" aria-pressed="false" autocomplete="off">
+                    添加数据集
+                </button>
+            </div>
+        </div>
+        <div class="col-md-6 sidebar border-right" >
+            <h2 class="page-header">预测邮件</h2>
+            <div class="show-email full-wid sidebar" style="background-color:#f0f0f0;height:400px;">
+
+            </div>
+            <div class="email-btn-bar float-right" style="margin-top:20px">
+                <button type="button" class="btn btn-primary " data-toggle="button" aria-pressed="false" onautocomplete="off" style="margin-right:10px;">
+                    批量邮件
+                </button>
+                <button type="button" class="btn btn-primary " data-toggle="button" aria-pressed="false" onautocomplete="off">
+                    单封邮件
+                </button>
+            </div>
+        </div>
+
+        <div class="col-md-3 sidebar border-right">
+            <div class="predict-result-bar border-bottom" >
+                <h2 class="page-header">
+                    预测结果
+                </h2>
+                <div class="predict-result">
+                    <div class="num_data">
+                        <span class="data_bar">
+                            Ham邮件:
+                        </span>
+                        <span class="num" id="ham-num">
+                            1
+                        </span>
+                    </div>
+                    <div class="num_data">
+                        <span class="data_bar">
+                            Phishing邮件:
+                        </span>
+                        <span class="num" id="phishing-num">
+                            0
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="algorithm-bar" style="margin-top:50px;">
+                <h2 class="page-header">
+                    分类算法
+                </h2>
+                <div class="alg-list">
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+<
